@@ -3,10 +3,16 @@
  * to "YYYY-MM-DDTHH:MM:SS" format (ISO 8601 without timezone)
  * @param {string} dateString - The date string to convert
  * @returns {string} The formatted date string in YYYY-MM-DDTHH:MM:SS format
+ * @throws {Error} If the date string is invalid
  */
 const convertDateFormat = (dateString) => {
     // Parse the date string to create a Date object
     const date = new Date(dateString);
+    
+    // Validate that the date is valid
+    if (isNaN(date.getTime())) {
+        throw new Error('Invalid date string provided');
+    }
     
     // Extract date components in UTC to avoid timezone conversion issues
     const year = date.getUTCFullYear();
